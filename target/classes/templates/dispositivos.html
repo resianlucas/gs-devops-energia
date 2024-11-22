@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Gerenciamento de Dispositivos</title>
+</head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+
+    <div class="container py-3" style="margin-top: 60px;">
+        <h2 class="fw-light text-uppercase pb-2">Dispositivos de <span th:text="${usuario.name}"></span></h2>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Dispositivo</th>
+                    <th scope="col">Potência (W)</th>
+                    <th scope="col">Horas/Dia</th>
+                    <th scope="col">Dias/Mês</th>
+                    <th scope="col">Consumo Mensal (kWh)</th>
+                </tr>
+            </thead>
+            <tbody th:each="dispositivo : ${dispositivos}">
+                <tr class="align-middle">
+                    <td th:text="${dispositivo.id}"></td>
+                    <td th:text="${dispositivo.dispositivo}"></td>
+                    <td th:text="${dispositivo.potencia}"></td>
+                    <td th:text="${dispositivo.horasPorDia}"></td>
+                    <td th:text="${dispositivo.diasPorMes}"></td>
+                    <td th:text="${dispositivo.calcularConsumoMensal()}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <a th:href="@{/dispositivos/new/{id}(id=${usuario.id})}" class="btn btn-primary mt-3">Adicionar Dispositivo</a>
+    </div>
+
+    <footer th:replace="~{base :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Novo Dispositivo</title>
+</head>
+<body>
+    <header th:replace="~{base :: header}"></header>
+
+    <div class="container py-3" style="margin-top: 60px;">
+        <h2 class="fw-light text-uppercase pb-2" th:text="|Novo Dispositivo para ${usuario.nome}|"></h2>
+        
+        <form th:action="@{/dispositivos/new/{id}(id=${usuario.id})}" method="post" th:object="${dispositivo}">
+            <div class="mb-3">
+                <p class="alert alert-danger" th:errors="*{dispositivo}"></p>
+                <label for="dispositivo" class="form-label">Nome do Dispositivo</label>
+                <input type="text" class="form-control" id="dispositivo" name="dispositivo"
+                       placeholder="Ex. Ar-condicionado" th:field="*{dispositivo}">
+            </div>
+
+            <div class="mb-3">
+                <p class="alert alert-danger" th:errors="*{potencia}"></p>
+                <label for="potencia" class="form-label">Potência (Watts)</label>
+                <input type="number" class="form-control" id="potencia" name="potencia" step="any" min="1"
+                       placeholder="Ex. 1200" th:field="*{potencia}">
+            </div>
+
+            <div class="mb-3">
+                <p class="alert alert-danger" th:errors="*{horasPorDia}"></p>
+                <label for="horasPorDia" class="form-label">Horas de Uso por Dia</label>
+                <input type="number" class="form-control" id="horasPorDia" name="horasPorDia" min="1" max="24"
+                       placeholder="Ex. 8" th:field="*{horasPorDia}">
+            </div>
+
+            <div class="mb-3">
+                <p class="alert alert-danger" th:errors="*{diasPorMes}"></p>
+                <label for="diasPorMes" class="form-label">Dias de Uso por Mês</label>
+                <input type="number" class="form-control" id="diasPorMes" name="diasPorMes" min="1" max="31"
+                       placeholder="Ex. 20" th:field="*{diasPorMes}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Adicionar Dispositivo</button>
+        </form>
+    </div>
+
+    <footer th:replace="~{base :: footer}"></footer>
+</body>
+</html>
